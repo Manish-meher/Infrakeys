@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+
+/*
+  Theme tokens for the /new-home design.
+  Kept in its own file (instead of globals.css) and imported only from
+  src/app/new-home/page.jsx so it doesn't affect the rest of the site.
+*/
+.new-home-root {
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  font-family: var(--font-body);
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.new-home-root h1,
+.new-home-root h2,
+.new-home-root h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.new-home-root .section-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.new-home-root .label-tag {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Anchor targets must clear the sticky site header. */
+.new-home-root section[id],
+.new-home-root div[id] {
+  scroll-margin-top: 90px;
+}
+
+/* The site header is white; the hero sits directly beneath it. */
+.new-home-root a {
+  text-decoration: none;
+}

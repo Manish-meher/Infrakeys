@@ -24,9 +24,6 @@ export const endpoints = {
   subCategories: {
     getAll: "/sub-categories",
   },
-  brands: {
-    getAll: "/",
-  },
   points: {
     getAll: "/points",
   },

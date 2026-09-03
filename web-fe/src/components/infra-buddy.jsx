@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { MessageCircle, X } from "lucide-react";
+import Link from "next/link";
 
 export default function InfraBuddy() {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,8 +75,15 @@ export default function InfraBuddy() {
             </div>
           </div>
 
-          {/* Action Button */}
-          <div className="border-t border-gray-200 p-4">
+          {/* Action Buttons */}
+          <div className="space-y-2 border-t border-gray-200 p-4">
+            <Link
+              href="/apply-for-credit"
+              onClick={() => setIsOpen(false)}
+              className="block w-full rounded-lg bg-[#e91e63] px-4 py-3 text-center font-medium text-white transition-colors hover:bg-[#d81b60]"
+            >
+              Apply for Credit
+            </Link>
             <a
               href="https://api.whatsapp.com/send/?phone=%2B918130376622&text=Hello+I+Want+To+Know+About+Your+Services&type=phone_number&app_absent=0"
               target="_blank"

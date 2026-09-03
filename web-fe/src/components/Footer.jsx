@@ -9,6 +9,16 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { Mail, MapPin, PhoneCall } from "lucide-react";
+import { CONTACT, ROUTES, SOCIALS } from "@/data/site";
+
+const FOOTER_LINKS = [
+  { label: "home", href: ROUTES.home },
+  { label: "about", href: ROUTES.about },
+  { label: "products", href: ROUTES.products },
+  { label: "blogs", href: ROUTES.blogs },
+  { label: "news", href: ROUTES.news },
+  { label: "contact", href: ROUTES.contact },
+];
 
 export default function Footer() {
   return (
@@ -26,8 +36,9 @@ export default function Footer() {
             className="rounded-full bg-black transition-transform hover:-translate-y-1"
           >
             <a
-              href="https://www.facebook.com/profile.php?id=61555145229580"
+              href={SOCIALS.facebook}
               target="_blank"
+              rel="noopener noreferrer"
             >
               <FaFacebookF size={20} />
             </a>
@@ -36,7 +47,11 @@ export default function Footer() {
             size="icon"
             className="rounded-full bg-black transition-transform hover:-translate-y-1"
           >
-            <a href="https://www.instagram.com/infrakeys_technologies/">
+            <a
+              href={SOCIALS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram size={20} />
             </a>
           </Button>
@@ -53,8 +68,9 @@ export default function Footer() {
             className="rounded-full bg-black transition-transform hover:-translate-y-1"
           >
             <a
-              href="https://www.linkedin.com/company/infrakeys-technologies/"
+              href={SOCIALS.linkedin}
               target="_blank"
+              rel="noopener noreferrer"
             >
               <FaLinkedinIn size={20} />
             </a>
@@ -63,24 +79,21 @@ export default function Footer() {
             size="icon"
             className="rounded-full bg-black transition-transform hover:-translate-y-1"
           >
-            <a
-              href="https://www.youtube.com/@infrakeystechnologies"
-              target="_blank"
-            >
+            <a href={SOCIALS.youtube} target="_blank" rel="noopener noreferrer">
               <FaYoutube size={20} />
             </a>
           </Button>
         </div>
 
         <div className="">
-          <ul className="flex items-center justify-center gap-4 md:gap-8">
-            {["home", "about", "products", "blogs", "contact"].map((item) => (
-              <li key={item} className="">
+          <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-x-8">
+            {FOOTER_LINKS.map(({ label, href }) => (
+              <li key={label}>
                 <Link
-                  href={item === "home" ? "/" : `/${item}`}
+                  href={href}
                   className="text-sm capitalize transition-colors hover:text-primary"
                 >
-                  {item}
+                  {label}
                 </Link>
               </li>
             ))}
@@ -98,7 +111,11 @@ export default function Footer() {
             </div>
             <div>
               <span className="font-semibold">Phone:</span>
-              <p>+91 8130376622</p>
+              <p>
+                <a href={CONTACT.phoneHref} className="hover:text-primary">
+                  {CONTACT.phone}
+                </a>
+              </p>
             </div>
           </div>
 
@@ -112,7 +129,11 @@ export default function Footer() {
             </div>
             <div>
               <span className="font-semibold">Email</span>
-              <p>info@infrakeys.com</p>
+              <p>
+                <a href={CONTACT.emailHref} className="hover:text-primary">
+                  {CONTACT.email}
+                </a>
+              </p>
             </div>
           </div>
 

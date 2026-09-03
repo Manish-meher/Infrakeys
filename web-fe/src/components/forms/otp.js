@@ -26,6 +26,11 @@ export default function OTPForm({
   setRequestId,
   name = null,
   setName,
+  // Optional: called with the verify-otp response instead of the default
+  // "log the user in and redirect home" behaviour. Lets other flows (e.g.
+  // the homepage quote form) reuse this same OTP page + verify function
+  // while doing their own thing after a successful verification.
+  onVerified = null,
 }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -73,9 +78,14 @@ export default function OTPForm({
       localStorage.setItem("token", response.token);
       localStorage.setItem("refreshToken", response.refresh_token);
       setUser(response.user_data);
-      setOpen(false);
-      toast.success("Logged in.");
-      router.push("/");
+
+      if (onVerified) {
+        onVerified(response);
+      } else {
+        setOpen(false);
+        toast.success("Logged in.");
+        router.push("/");
+      }
 
       return response;
     } catch (error) {

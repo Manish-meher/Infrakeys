@@ -22,7 +22,7 @@ export const navList = [
 ];
 
 const fetchTempCart = () => {
-  return http().get(endpoints.cart.temp);
+  return http().get(endpoints.cart.getAll);
 };
 
 export function logout() {

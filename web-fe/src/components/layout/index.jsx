@@ -6,6 +6,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { allRoutes } from "@/data/routes";
 import { MainContext } from "@/store/context";
 import Spinner from "../Spinner";
+import InfraBuddy from "../infra-buddy";
 
 export default function Layout({ children }) {
   const pathname = usePathname();
@@ -39,7 +40,15 @@ export default function Layout({ children }) {
     }
   }, [pathname, user, isUserLoading, slug]);
 
-  if (isUserLoading) return <Spinner />;
+  // Only role-protected routes wait for the profile call. Public pages used to
+  // be blocked too, which meant they were served as a bare spinner (nothing to
+  // index and a blank first paint).
+  const currentRoute = allRoutes?.find(
+    (route) => route.link === pathname.replace("[slug]", slug),
+  );
+  const isProtectedRoute = Boolean(currentRoute?.roles?.length);
+
+  if (isUserLoading && isProtectedRoute) return <Spinner />;
 
   return (
     <div>
@@ -48,6 +57,7 @@ export default function Layout({ children }) {
         <div className="h-full">{children}</div>
       </main>
       <Footer />
+      <InfraBuddy />
     </div>
   );
 }

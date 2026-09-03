@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { MainContext } from "@/store/context";
 import React, { useContext, useState } from "react";
-
 export default function Layout({ children }) {
   const { user } = useContext(MainContext);
   const [open, setOpen] = useState(

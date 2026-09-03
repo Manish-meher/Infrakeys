@@ -1,5 +1,11 @@
 "use client";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   Table,
   TableBody,
@@ -33,6 +39,10 @@ import { handleWhatsAppEnq } from "@/lib/handle-whatsapp-enq";
 import { MainContext } from "@/store/context";
 
 export default function ProductTableWithFilter({ products }) {
+  const productList = useMemo(
+    () => (Array.isArray(products) ? products.filter(Boolean) : []),
+    [products],
+  );
   const router = useRouter();
   const { user } = useContext(MainContext);
   const [customProperties, setCustomProperties] = useState({});
@@ -56,18 +66,18 @@ export default function ProductTableWithFilter({ products }) {
 
   const getFilteredProducts = useCallback(() => {
     if (Object.keys(filters).every((i) => filters[i].length === 0))
-      return products;
+      return productList;
 
-    return products?.filter((product) => {
+    return productList.filter((product) => {
       // Check if any custom property matches
       for (const prop in filters) {
         if (filters[prop].length === 0) continue; // empty filters
 
         if (
-          !product.custom_properties.some(
+          !product.custom_properties?.some(
             (cp) =>
-              cp.name.toLowerCase() === prop.toLowerCase() &&
-              cp.values.some((value) =>
+              cp.name?.toLowerCase() === prop.toLowerCase() &&
+              cp.values?.some((value) =>
                 filters[prop.toLowerCase()].includes(value.toLowerCase()),
               ),
           )
@@ -78,18 +88,18 @@ export default function ProductTableWithFilter({ products }) {
 
       return true;
     });
-  }, [filters]);
+  }, [filters, productList]);
 
   useEffect(() => {
-    if (!(products?.length === 1 && products?.[0] === null)) {
+    if (productList.length) {
       setValue(
         "products",
-        products?.map((product) => ({ ...product, _id: product.id })),
+        productList.map((product) => ({ ...product, _id: product.id })),
       );
 
-      for (const { custom_properties } of products) {
-        for (const cp of custom_properties) {
-          const name = String(cp.name).toLowerCase();
+      for (const { custom_properties = [] } of productList) {
+        for (const cp of custom_properties ?? []) {
+          const name = String(cp?.name ?? "").toLowerCase();
 
           if (name) {
             setCustomProperties((prev) => ({
@@ -97,19 +107,22 @@ export default function ProductTableWithFilter({ products }) {
               [name]: prev[name]
                 ? [
                     ...prev[name],
-                    ...cp.values
+                    ...(cp.values ?? [])
                       .filter(
                         (item) => !prev[name].includes(item.toLowerCase()),
                       )
                       .map((item) => item.toLowerCase()),
                   ]
-                : [...cp.values.map((item) => item.toLowerCase())],
+                : [...(cp.values ?? []).map((item) => item.toLowerCase())],
             }));
           }
         }
       }
+    } else {
+      setValue("products", []);
+      setCustomProperties({});
     }
-  }, [products]);
+  }, [productList, setValue]);
 
   return (
     <div className="space-y-4">

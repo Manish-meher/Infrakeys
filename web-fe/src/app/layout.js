@@ -13,11 +13,10 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import Script from "next/script";
-import InteraktChatbot from "@/components/whatsapp-chatbot";
 import GoogleAnalyticss from "./GoogleAnalytics";
 import LoginDialogProvider from "@/store/login-dialog-context";
 
-export const metadata = {
+ export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL),
   title: {
     default: "Infrakeys: Mild steel, PEB & Scaffolding",
@@ -30,25 +29,25 @@ export const metadata = {
   alternates: {
     canonical: `/`,
   },
-  openGraph: {
-    title: "Infrakeys: Mild steel, PEB & Scaffolding",
-    description:
-      "Powering Infrastructure with Smart Solutions We simplify infrastructure with end-to-end material supply, precision manufacturing, and smart financing solutions. From steel and PEB structures to scaffolding and crash barriers, we deliver quality, speed, and cost-efficiency. Our tech-driven platform ensures real-time tracking, seamless procurement, and flexible financing – empowering businesses to build faster and smarter. Building Tomorrow, Financing Today.",
-    images: [
-      {
-        url: "https://www.infrakeys.com/_next/static/media/banner-1.d4ebdb1b.webp",
-        width: 800,
-        height: 600,
-        alt: "Infrakeys",
-      },
-      {
-        url: "https://www.infrakeys.com/_next/static/media/banner-3.72569777.webp",
-        width: 800,
-        height: 600,
-        alt: "Infrakeys",
-      },
-    ],
-  },
+  // openGraph: {
+  //   title: "Infrakeys: Mild steel, PEB & Scaffolding",
+  //   description:
+  //     "Powering Infrastructure with Smart Solutions We simplify infrastructure with end-to-end material supply, precision manufacturing, and smart financing solutions. From steel and PEB structures to scaffolding and crash barriers, we deliver quality, speed, and cost-efficiency. Our tech-driven platform ensures real-time tracking, seamless procurement, and flexible financing – empowering businesses to build faster and smarter. Building Tomorrow, Financing Today.",
+  //   images: [
+  //     {
+  //       url: "https://www.infrakeys.com/_next/static/media/banner-1.d4ebdb1b.webp",
+  //       width: 800,
+  //       height: 600,
+  //       alt: "Infrakeys",
+  //     },
+  //     {
+  //       url: "https://www.infrakeys.com/_next/static/media/banner-3.72569777.webp",
+  //       width: 800,
+  //       height: 600,
+  //       alt: "Infrakeys",
+  //     },
+  //   ],
+  // },
   verification: {
     google: "kWcwy0Kag9MmpnCSMcrOL7VuQT5ZKjuBbZ6218QCpZw",
   },
@@ -64,7 +63,6 @@ export default function RootLayout({ children }) {
         <GoogleTagManager gtmId="GTM-WN9SB6DD" />
         <GoogleAnalytics gaId="AW-11427244694" />
         <GoogleAnalyticss />
-        <InteraktChatbot />
         <Script id="gtag" strategy="afterInteractive">
           {`gtag("event", "conversion", {
             send_to: "AW-11427244694/lnYGCJrDgdsZEJbV98gq",
